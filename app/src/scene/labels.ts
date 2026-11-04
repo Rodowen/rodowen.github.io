@@ -80,7 +80,7 @@ export function makeBoxTexture(product: keyof typeof BOX) {
   g.fillRect(0, 0, 512, 680);
   g.fillStyle = spec.band;
   g.fillRect(0, 300, 512, 46);
-  g.font = '600 78px Fraunces, Georgia, serif';
+  g.font = '600 96px Fraunces, Georgia, serif';
   g.fillStyle = spec.fg;
   g.textAlign = 'center';
   g.textBaseline = 'middle';

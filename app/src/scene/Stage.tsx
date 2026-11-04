@@ -26,7 +26,7 @@ export function Stage(props: Props) {
       <Canvas
         shadows
         dpr={[1, props.narrow ? 1.25 : 1.7]}
-        camera={{ fov: 36, near: 0.08, far: 80, position: [-7.6, 5.15, -12.6] }}
+        camera={{ fov: 32, near: 0.1, far: 90, position: [-5.4, 3.0, -16.2] }}
         gl={{
           antialias: true,
           alpha: false,
@@ -37,21 +37,22 @@ export function Stage(props: Props) {
         onCreated={({ gl }) => {
           gl.setClearColor('#14110e');
           gl.toneMapping = ACESFilmicToneMapping;
-          gl.toneMappingExposure = 1.08;
+          gl.toneMappingExposure = 1.02;
           document.documentElement.dataset.plant = 'ready';
           props.onReady();
         }}
       >
         <AdaptiveDpr />
         <color attach="background" args={['#14110e']} />
-        <fog attach="fog" args={['#14110e', 18, 46]} />
+        <fog attach="fog" args={['#14110e', 18, 52]} />
         <SoftEnvironment />
-        <hemisphereLight args={['#ffe7c8', '#3a2a22', 0.62]} />
-        <ambientLight intensity={0.16} color="#f3e2c8" />
+        <hemisphereLight args={['#ffe6c4', '#2a1c14', 0.72]} />
+        <ambientLight intensity={0.28} color="#f3e2c8" />
+        <directionalLight position={[-8, 5, -8]} intensity={0.45} color="#ffd7a8" />
         <directionalLight
-          position={[-8, 12, -5]}
-          intensity={2.6}
-          color="#fff6e8"
+          position={[-10, 14, -6]}
+          intensity={1.7}
+          color="#fff4e4"
           castShadow
           shadow-mapSize-width={props.narrow ? 1024 : 2048}
           shadow-mapSize-height={props.narrow ? 1024 : 2048}

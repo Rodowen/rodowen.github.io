@@ -6,24 +6,25 @@ export type Pose = {
   fov: number;
 };
 
-// Eye-level on the dark studio floor, aimed at the clay set.
-// Desktop keeps the subject right of the card. Phone keeps it above the card.
+// Outside the open side of the long nave, about 3 m up.
+// The look point sits left of the subject so the card does not cover it.
 const wide = {
-  insumos: { pos: [-2.4, 2.35, -12.85], look: [4.05, 1.15, -11.35], fov: 36 },
-  masa: { pos: [-2.2, 2.25, -5.35], look: [4.2, 1.15, -3.9], fov: 36 },
-  horno: { pos: [-2.05, 2.2, 1.15], look: [4.5, 1.2, 2.85], fov: 36 },
-  cajas: { pos: [-2.15, 2.2, 7.25], look: [4.4, 1.15, 8.9], fov: 36 },
-  entrega: { pos: [-2.3, 2.3, 13.05], look: [4.5, 1.1, 15.05], fov: 38 },
-  cupo: { pos: [0.35, 1.45, 13.15], look: [2.15, 1.12, 14.0], fov: 32 },
+  insumos: { pos: [-5.4, 3.0, -16.2], look: [4.4, 0.9, -12.6], fov: 32 },
+  masa: { pos: [-5.0, 2.95, -9.0], look: [4.6, 0.9, -5.4], fov: 32 },
+  horno: { pos: [-4.8, 2.95, -1.5], look: [5.0, 1.05, 2.2], fov: 32 },
+  cajas: { pos: [-4.6, 2.9, 5.2], look: [4.8, 1.0, 8.6], fov: 31 },
+  entrega: { pos: [-6.2, 3.15, 8.6], look: [4.8, 1.05, 15.2], fov: 36 },
+  cupo: { pos: [-2.8, 2.25, 11.0], look: [5.6, 1.0, 14.4], fov: 36 },
 } satisfies Record<StationId, Pose>;
 
+// Phone: a little higher, look lowered so the station sits above the card.
 const narrow = {
-  insumos: { pos: [-0.6, 2.55, -12.55], look: [4.0, 0.55, -11.35], fov: 40 },
-  masa: { pos: [-0.5, 2.6, -5.2], look: [4.2, 0.15, -3.95], fov: 40 },
-  horno: { pos: [-0.4, 2.55, 1.2], look: [4.4, 0.2, 2.8], fov: 40 },
-  cajas: { pos: [-0.45, 2.6, 7.3], look: [4.3, 0.15, 8.9], fov: 40 },
-  entrega: { pos: [-0.55, 2.7, 13.1], look: [4.4, 0.1, 15.1], fov: 40 },
-  cupo: { pos: [-1.7, 1.85, 12.35], look: [2.12, 0.42, 13.98], fov: 36 },
+  insumos: { pos: [-3.6, 3.45, -15.4], look: [4.8, 0.2, -11.8], fov: 38 },
+  masa: { pos: [-3.4, 3.5, -8.4], look: [5.0, 0.15, -4.6], fov: 38 },
+  horno: { pos: [-3.2, 3.45, -0.6], look: [5.2, 0.2, 2.5], fov: 38 },
+  cajas: { pos: [-3.0, 3.5, 6.0], look: [5.0, 0.15, 9.0], fov: 36 },
+  entrega: { pos: [-4.0, 3.6, 9.4], look: [5.0, 0.1, 15.0], fov: 40 },
+  cupo: { pos: [-4.6, 3.15, 8.8], look: [5.6, 0.75, 13.8], fov: 34 },
 } satisfies Record<StationId, Pose>;
 
 export function poseFor(id: StationId, isNarrow: boolean) {

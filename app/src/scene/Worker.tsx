@@ -12,11 +12,12 @@ type Props = {
   selected: boolean;
   reduced: boolean;
   product: ProductId;
+  fontsReady: boolean;
   onSelect: (id: string) => void;
   onOpen?: () => void;
 };
 
-export function Worker({ person, selected, reduced, product, onSelect, onOpen }: Props) {
+export function Worker({ person, selected, reduced, product, fontsReady, onSelect, onOpen }: Props) {
   const ref = useRef<Group>(null);
   useFrame(({ clock }) => {
     const group = ref.current;
@@ -45,17 +46,17 @@ export function Worker({ person, selected, reduced, product, onSelect, onOpen }:
         <meshBasicMaterial transparent opacity={0} depthWrite={false} />
       </mesh>
       {selected ? (
-        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.015, 0]}>
-          <ringGeometry args={[0.28, 0.34, 28]} />
-          <meshStandardMaterial color="#e4b15a" roughness={0.6} />
+        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.08, 0]}>
+          <ringGeometry args={[0.42, 0.58, 32]} />
+          <meshBasicMaterial color="#e4b15a" />
         </mesh>
       ) : null}
-      <Figure tool={person.tool} product={product} onOpen={onOpen} />
+      <Figure tool={person.tool} product={product} fontsReady={fontsReady} onOpen={onOpen} />
     </group>
   );
 }
 
-function Figure({ tool, product, onOpen }: { tool: Tool; product: ProductId; onOpen?: () => void }) {
+function Figure({ tool, product, fontsReady, onOpen }: { tool: Tool; product: ProductId; fontsReady: boolean; onOpen?: () => void }) {
   return (
     <group>
       <Shoe x={-0.08} />
@@ -108,7 +109,7 @@ function Figure({ tool, product, onOpen }: { tool: Tool; product: ProductId; onO
       <Arms tool={tool} />
       {tool === 'clipboard' ? <Clipboard /> : null}
       {tool === 'peel' ? <Peel /> : null}
-      {tool === 'offer' ? <OfferBox product={product} onOpen={onOpen} /> : null}
+      {tool === 'offer' ? <OfferBox product={product} fontsReady={fontsReady} onOpen={onOpen} /> : null}
     </group>
   );
 }
@@ -177,8 +178,8 @@ const POSE: Record<Tool, { left: [Joint, Joint]; right: [Joint, Joint] }> = {
     right: [[0.2, 1.06, 0.08], [0.12, 0.86, 0.34]],
   },
   offer: {
-    left: [[-0.2, 1.08, 0.08], [-0.18, 0.92, 0.32]],
-    right: [[0.2, 1.08, 0.08], [0.18, 0.92, 0.32]],
+    left: [[-0.22, 1.05, 0.1], [-0.28, 0.96, 0.48]],
+    right: [[0.22, 1.05, 0.1], [0.28, 0.96, 0.48]],
   },
 };
 
@@ -223,24 +224,24 @@ function Clipboard() {
 
 function Peel() {
   return (
-    <group position={[0.12, 0.9, 0.36]} rotation={[-0.35, -0.7, 0.05]}>
+    <group position={[-0.15, 0.95, 0.2]} rotation={[0.25, 1.35, -0.15]}>
       <mesh castShadow>
-        <boxGeometry args={[0.045, 0.045, 1.05]} />
+        <boxGeometry args={[0.045, 0.045, 1.45]} />
         <meshStandardMaterial color={clay.wood} roughness={0.8} />
       </mesh>
-      <mesh position={[0, 0, 0.62]} castShadow>
-        <boxGeometry args={[0.28, 0.02, 0.32]} />
+      <mesh position={[0, 0, 0.86]} castShadow>
+        <boxGeometry args={[0.36, 0.03, 0.42]} />
         <meshStandardMaterial color={clay.woodDark} roughness={0.78} />
       </mesh>
     </group>
   );
 }
 
-function OfferBox({ product, onOpen }: { product: ProductId; onOpen?: () => void }) {
-  const map = useMemo(() => makeBoxTexture(product), [product]);
+function OfferBox({ product, fontsReady, onOpen }: { product: ProductId; fontsReady: boolean; onOpen?: () => void }) {
+  const map = useMemo(() => makeBoxTexture(product), [product, fontsReady]);
   return (
     <group
-      position={[0.46, 0.95, 0.32]}
+      position={[0, 0.98, 0.5]}
       onClick={(event) => {
         event.stopPropagation();
         onOpen?.();
@@ -253,11 +254,11 @@ function OfferBox({ product, onOpen }: { product: ProductId; onOpen?: () => void
         document.body.style.cursor = '';
       }}
     >
-      <RoundedBox args={[0.52, 0.68, 0.48]} radius={0.03} smoothness={2} castShadow>
+      <RoundedBox args={[0.5, 0.62, 0.4]} radius={0.03} smoothness={2} castShadow>
         <meshStandardMaterial color={boxBody[product]} roughness={0.72} />
       </RoundedBox>
-      <mesh position={[0, 0, 0.245]}>
-        <planeGeometry args={[0.48, 0.62]} />
+      <mesh position={[0, 0, 0.205]}>
+        <planeGeometry args={[0.46, 0.56]} />
         <meshBasicMaterial map={map} toneMapped={false} />
       </mesh>
     </group>

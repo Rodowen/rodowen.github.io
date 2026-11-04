@@ -71,6 +71,10 @@ export function sackMap() {
       g.quadraticCurveTo(x + 8, h * 0.5, x - 4, h);
       g.stroke();
     }
+    g.fillStyle = '#6e4a32';
+    g.font = '700 54px Manrope, sans-serif';
+    g.textAlign = 'center';
+    g.fillText('HARINA', w / 2, h * 0.58);
     g.fillStyle = '#cbb89a';
     g.fillRect(0, 0, w, 64);
     const side = g.createLinearGradient(0, 0, w, 0);
@@ -104,14 +108,13 @@ let sackGeo: THREE.LatheGeometry | null = null;
 export function sackGeometry() {
   if (sackGeo) return sackGeo;
   const points = [
-    [0.035, 0.86],
-    [0.055, 0.78],
+    [0.05, 0.78],
     [0.09, 0.7],
-    [0.16, 0.6],
-    [0.26, 0.46],
-    [0.3, 0.28],
-    [0.28, 0.1],
-    [0.18, 0.02],
+    [0.2, 0.58],
+    [0.32, 0.4],
+    [0.34, 0.22],
+    [0.31, 0.08],
+    [0.24, 0.0],
   ].map(([x, y]) => new THREE.Vector2(x, y));
   sackGeo = new THREE.LatheGeometry(points, 14);
   sackGeo.computeVertexNormals();
